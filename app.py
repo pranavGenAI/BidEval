@@ -86,7 +86,7 @@ st.markdown("""
             animation: gradientAnimation 20s ease-in-out infinite;
         }
     </style>
-    <p class="animated-gradient-text_">
+    <p class="animated-gradient-text">
         Bid Response Evaluation AI: Evaluates Bid responses!
     </p>
 """, unsafe_allow_html=True)
