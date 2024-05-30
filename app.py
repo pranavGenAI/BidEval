@@ -17,7 +17,6 @@ import time
 
 st.set_page_config(page_title="Bid Response Evaluation AI ", layout="wide")
 
-
 video_html = """
 		<style>
 
@@ -40,7 +39,7 @@ video_html = """
 
 		</style>	
 		<video autoplay muted loop id="myVideo">
-		  <source src="/mixkit-stars-in-space-background-1610-hd-ready.mp4")>
+		  <source src="mount/src/bideval/mixkit-stars-in-space-background-1610-hd-ready.mp4")>
 		  Your browser does not support HTML5 video.
 		</video>
         """
