@@ -40,7 +40,7 @@ video_html = """
 
 		</style>	
 		<video autoplay muted loop id="myVideo">
-		  <source src="https://static.streamlit.io/examples/star.mp4")>
+		  <source src="https://github.com/pranavGenAI/BidEval/blob/main/mixkit-stars-in-space-background-1610-hd-ready.mp4")>
 		  Your browser does not support HTML5 video.
 		</video>
         """
