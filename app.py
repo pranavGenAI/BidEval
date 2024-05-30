@@ -39,11 +39,10 @@ video_html = """
 
 		</style>	
 		<video autoplay muted loop id="myVideo">
-		  <source src="mount/src/bideval/mixkit-stars-in-space-background-1610-hd-ready.mp4")>
+		  <source src="https://assets.mixkit.co/videos/1610/1610-720.mp4")>
 		  Your browser does not support HTML5 video.
 		</video>
         """
-st.write(os.getcwd())
 st.markdown(video_html, unsafe_allow_html=True)
 
 st.markdown("""
