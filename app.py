@@ -76,39 +76,15 @@ st.markdown("""
             }
         }
 
-        .animated-gradient-text_ {
+        .animated-gradient-text {
             font-family: "Graphik Semibold";
             font-size: 42px;
-            background: linear-gradient(45deg, rgb(245, 58, 126) 30%, rgb(200, 1, 200) 55%, rgb(197, 45, 243) 20%);
+            background: linear-gradient(45deg, #22ebe8 30%, #dc14b7 55%, #fe647b 20%);
             background-size: 300% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientAnimation 10s ease-in-out infinite;
+            animation: gradientAnimation 20s ease-in-out infinite;
         }
-        @keyframes animate_ {
-            0%, 18%, 20%, 50.1%,60%, 65.1%, 80%,90.1%,92% {
-                color: #0e3742;
-                text-shadow: none;
-                }
-            18.1%, 20.1%, 30%,50%,60.1%,65%,80.1%,90%, 92.1%,100% {
-                color: #fff;
-                text-shadow: 0 0 10px rgb(197, 45, 243),
-                             0 0 20px rgb(197, 45, 243);
-                }
-            }
-        
-        .animated-gradient-text_ {
-                    font-family: "Graphik Semibold";
-                    font-size: 42px;
-                    color: #FFF;
-                    transition: color 0.5s, text-shadow 0.5s;
-                }
-
-        .animated-gradient-text_:hover {
-                    animation: animate_ 5s linear infinite;
-                }
-
-        
     </style>
     <p class="animated-gradient-text_">
         Bid Response Evaluation AI: Evaluates Bid responses!
