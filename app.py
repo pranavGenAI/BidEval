@@ -46,9 +46,6 @@ video_html = """
 st.write(os.getcwd())
 st.markdown(video_html, unsafe_allow_html=True)
 
-
-
-
 st.markdown("""
 <style>
     iframe {
@@ -169,7 +166,7 @@ def main():
         with st.spinner("Inconsistent Response Found. Standardizing Sections...."):
           time.sleep(5)
       with st.spinner("Embedding Text into vectors...."):
-          time.sleep(4)
+          time.sleep(3)
       with st.spinner("Section wise Chunking Responses...."):
           time.sleep(4)
       
