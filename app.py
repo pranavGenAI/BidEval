@@ -17,7 +17,7 @@ import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
 import io
-
+import requests
 from streamlit_lottie import st_lottie
 
 import time
