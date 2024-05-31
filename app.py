@@ -25,9 +25,6 @@ import time
 
 st.set_page_config(page_title="Bid Response Evaluation AI ", layout="wide")
 
-st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
-st.markdown("")
-
 video_html = """
 		<style>
 		#myVideo {
@@ -148,6 +145,10 @@ def user_input(api_key):
 
 
 def main():
+
+    st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
+    st.markdown("")
+
     st.header("Evaluate bid responses: LCBO ESG Strategy RFP")
     
     st.markdown("""
