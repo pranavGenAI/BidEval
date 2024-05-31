@@ -129,7 +129,6 @@ def get_pdf_text(pdf_docs):
 		pdf_document.close()
 		text += "\n\nResponse 2: "
 
-	st.write(text)
 	return text
 
 def user_input(api_key):
@@ -137,7 +136,7 @@ def user_input(api_key):
 
 
 def main():
-    st.header("Evaluate bid responses")
+    st.header("Evaluate bid responses: LCBO ESG Strategy RFP")
     st.markdown("""
     <style>
     input {
@@ -160,6 +159,10 @@ def main():
         time.sleep(5)
         with st.spinner("Inconsistent Response Found. Standardizing Sections...."):
           time.sleep(5)
+		
+        with st.spinner("Scanning for images..."):
+          time.sleep(4)
+		
       with st.spinner("Embedding Text into vectors...."):
           time.sleep(3)
       with st.spinner("Section wise Chunking Responses...."):
