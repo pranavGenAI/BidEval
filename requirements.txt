@@ -30,3 +30,4 @@ PyMuPDF
 pytesseract
 pdf2image
 Pillow
+streamlit-lottie
