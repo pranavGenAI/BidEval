@@ -112,6 +112,8 @@ def get_pdf_text(pdf_docs):
     text = ""
     for pdf_info in pdf_docs:
         filename = pdf_info.name
+	st.write(pdf_info)
+	st.write(pdf_docs)
         try:
             with fitz.open(pdf_info) as pdf_document:
                 for page_num in range(len(pdf_document)):
