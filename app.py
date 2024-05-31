@@ -158,8 +158,8 @@ def main():
     #pdf_docs = st.file_uploader("Upload RFP responses here and Click on the Submit & Process Button", accept_multiple_files=True, key="pdf_uploader")
     pdf_docs = ["XYZ Consulting_withimage.pdf","ABC Consulting Response.pdf"]    
     if st.button("Start the evaluation"):
-      lottie_gif = load_lottieurl("https://lottie.host/0e82379c-6c75-4e4d-a1a0-e3bdb0c15400/gQTNtlyg1z.json")
-      with st_lottie_spinner(lottie_gif, height=300):
+      # lottie_gif = load_lottieurl("https://lottie.host/0e82379c-6c75-4e4d-a1a0-e3bdb0c15400/gQTNtlyg1z.json")
+      # with st_lottie_spinner(lottie_gif, height=300):
 	      with st.spinner("Processing Response..."):
 	        with st.spinner("Reading response document..."):
 	            time.sleep(8)
