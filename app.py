@@ -238,7 +238,6 @@ def main():
                 prompt=prompt,
                 verbose=True
             )
-        	
 	    response = chat_llm_chain.predict(raw_text=raw_text)
 	    st.write(response)
 
