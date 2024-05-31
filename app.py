@@ -24,6 +24,7 @@ from streamlit_lottie import st_lottie_spinner
 import time
 
 st.set_page_config(page_title="Bid Response Evaluation AI ", layout="wide")
+
 st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
 st.markdown("")
 
