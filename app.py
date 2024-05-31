@@ -165,20 +165,19 @@ def main():
 	            raw_text = get_pdf_text(pdf_docs)
 	            # st.write(raw_text)
 	        
-	      with st.spinner("Standardizing Responses...."):
-	        time.sleep(5)
-	        with st.spinner("Inconsistent Response Found. Standardizing Sections...."):
-	          time.sleep(5)
-			
-	        with st.spinner("Scanning for images..."):
-	          time.sleep(4)
-			
-	      with st.spinner("Embedding Text into vectors...."):
+	        with st.spinner("Standardizing Responses...."):
+			time.sleep(5)
+		with st.spinner("Inconsistent Response Found. Standardizing Sections...."):
+			time.sleep(5)
+		with st.spinner("Scanning for images..."):
+			time.sleep(4)
+		with st.spinner("Section wise Chunking Responses...."):
+			time.sleep(4)
+	    
+	    with st.spinner("Embedding Text into vectors...."):
 	          time.sleep(3)
-	      with st.spinner("Section wise Chunking Responses...."):
-	          time.sleep(4)
 	      
-	      with st.spinner("Evaluating Responses based on the scoring criteria"):
+	    with st.spinner("Evaluating Responses based on the scoring criteria"):
 	            prompt = ''' Consider yourself as bid evaluator who will evaluate bids received from different vendors basis the context provided and will generate score with explaination. I will provide you some context but before we jump into evaluation let's understand the bid. Below are the bid details for which we will be evaluating the responses: 
 	            LCBO Background
 	            The Liquor Control Board of Ontario (LCBO) is a leading global retailer and wholesaler of beverage alcohol, offering over 28,000 products from more than 80 countries. Through its Spirit of Sustainability (SoS) platform, launched in 2018, the LCBO supports Ontario’s social and environmental needs. Last year, it contributed over $16 million to community well-being and returned $2.55 billion to the province.
