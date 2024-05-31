@@ -109,50 +109,34 @@ def ocr_image(image):
     return text
 	
 def get_pdf_text(pdf_docs):
-	text = "Response 1: "
-	st.write(pdf_docs)
-
-	for pdf_info in pdf_docs:
-	    # Extract filename from UploadedFile object (assuming a 'name' attribute)
-	    filename = pdf_info.name
-	    # Construct the file path
-	    file_path = f"path/to/files/{filename}"
-	    try:
-		    with fitz.open(file_path) as pdf_document:        
-			    	pdf_document = fitz.open(pdf_path)
-			
-			# Loop through each page
-				for page_num in range(len(pdf_document)):
-				    # Get the page
-				    page = pdf_document.load_page(page_num)
-				    
-				    # Extract text directly from the page
-				    text += page.get_text()
-				    
-				    # Extract images from the page
-				    images = page.get_images(full=True)
-				    
-				for img_index, img in enumerate(images):
-				        xref = img[0]
-				        base_image = pdf_document.extract_image(xref)
-				        image_bytes = base_image["image"]
-				        image_ext = base_image["ext"]
-				        
-				        # Open the image with PIL
-				        image = Image.open(io.BytesIO(image_bytes))
-				        
-				        # Perform OCR on the image
-				        text += ocr_image(image)
-				
-				text += "\n\n Response 2:"
-			
-				# Close the PDF document
-				pdf_document.close()
-	  
-	    except Exception as e:
-		     		print(f"Error processing {filename}: {e}")
-	
-
+    text = ""
+    for pdf_info in pdf_docs:
+        filename = pdf_info.name
+        try:
+            with fitz.open(pdf_info) as pdf_document:
+                for page_num in range(len(pdf_document)):
+                    page = pdf_document.load_page(page_num)
+                    text += page.get_text()
+                    
+                    images = page.get_images(full=True)
+                    for img_index, img in enumerate(images):
+                        xref = img[0]
+                        base_image = pdf_document.extract_image(xref)
+                        image_bytes = base_image["image"]
+                        image_ext = base_image["ext"]
+                        
+                        # Open the image with PIL
+                        image = Image.open(io.BytesIO(image_bytes))
+                        
+                        # Perform OCR on the image
+                        text += ocr_image(image)
+                        
+            text += "\n\nResponse next: "
+        
+        except Exception as e:
+            st.error(f"Error processing {filename}: {e}")
+    
+    return text
 
 def user_input(api_key):
     st.write('inside input function')
