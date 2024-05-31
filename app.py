@@ -120,21 +120,20 @@ def get_pdf_text(pdf_docs):
 				    page = pdf_document.load_page(page_num)
 				    text += page.get_text()
                     
-                    images = page.get_images(full=True)
-		    for img_index, img in enumerate(images):
-			    xref = img[0]
-			    base_image = pdf_document.extract_image(xref)
-			    image_bytes = base_image["image"]
-			    image_ext = base_image["ext"]
-			    image = Image.open(io.BytesIO(image_bytes))
-			    text += ocr_image(image)
-                        
-            text += "\n\nResponse 2: "
+	                    images = page.get_images(full=True)
+			    for img_index, img in enumerate(images):
+				    xref = img[0]
+				    base_image = pdf_document.extract_image(xref)
+				    image_bytes = base_image["image"]
+				    image_ext = base_image["ext"]
+				    image = Image.open(io.BytesIO(image_bytes))
+				    text += ocr_image(image)
+                            
         
         except Exception as e:
             st.error(f"Error processing {filename}: {e}")
-    
-    return text
+    text += "\n\nResponse 2: "
+return text
 
 def user_input(api_key):
     st.write('inside input function')
