@@ -53,6 +53,8 @@ video_html = """
 
 st.markdown(video_html, unsafe_allow_html=True)
 
+st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
+st.markdown("")
 
 st.markdown("""
 <style>
@@ -146,8 +148,6 @@ def user_input(api_key):
 
 def main():
 
-    st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
-    st.markdown("")
 
     st.header("Evaluate bid responses: LCBO ESG Strategy RFP")
     
