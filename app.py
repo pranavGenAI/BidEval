@@ -18,6 +18,8 @@ from pdf2image import convert_from_path
 from PIL import Image
 import io
 
+from streamlit_lottie import st_lottie
+
 import time
 
 st.set_page_config(page_title="Bid Response Evaluation AI ", layout="wide")
