@@ -160,7 +160,9 @@ def main():
     if st.button("Start the evaluation"):
 	lottie_gif = load_lottieurl("https://lottie.host/0e82379c-6c75-4e4d-a1a0-e3bdb0c15400/gQTNtlyg1z.json")
         with st.container():
-		st_lottie(lottie_gif, height=100)
+		col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
+		with col1:
+			st_lottie(lottie_gif, height=100)
       	
 	with st.spinner("Processing Response..."):
 	        with st.spinner("Reading response document..."):
