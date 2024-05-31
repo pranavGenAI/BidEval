@@ -109,8 +109,8 @@ def ocr_image(image):
     return text
 	
 def get_pdf_text(pdf_docs):
-    	text = "Response 1: "
 	st.write(pdf_docs)
+	text = "Response 1: "
 	for pdf_path in pdf_docs:
 		st.write(pdf_path)
 		pdf_document = fitz.open(pdf_path)
