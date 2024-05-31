@@ -128,7 +128,7 @@ def get_pdf_text(pdf_docs):
 		pdf_document.close()
 		text += "\n\nResponse 2: "
 
-return text
+	return text
 
 def user_input(api_key):
     st.write('inside input function')
