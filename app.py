@@ -109,10 +109,11 @@ def ocr_image(image):
     return text
 	
 def get_pdf_text(pdf_docs):
-	st.write(pdf_docs)
+	
 	text = "Response 1: "
+	
 	for pdf_path in pdf_docs:
-		st.write(pdf_path)
+		
 		pdf_document = fitz.open(pdf_path)
 		for page_num in range(len(pdf_document)):
 			page = pdf_document.load_page(page_num)
@@ -128,6 +129,7 @@ def get_pdf_text(pdf_docs):
 		pdf_document.close()
 		text += "\n\nResponse 2: "
 
+	st.write(text)
 	return text
 
 def user_input(api_key):
@@ -145,8 +147,8 @@ def main():
     """, unsafe_allow_html=True)
 #    user_question = st.text_input("Ask a Question from the RFP Files", key="user_question")
 
-    pdf_docs = st.file_uploader("Upload RFP responses here and Click on the Submit & Process Button", accept_multiple_files=True, key="pdf_uploader")
-    
+    #pdf_docs = st.file_uploader("Upload RFP responses here and Click on the Submit & Process Button", accept_multiple_files=True, key="pdf_uploader")
+    pdf_docs = ["XYZ Consulting_withimage.pdf","ABC Consulting Response.pdf"]    
     if st.button("Start the evaluation"):  # Ensure API key and user question are provided
       with st.spinner("Processing Response..."):
         with st.spinner("Reading response document..."):
