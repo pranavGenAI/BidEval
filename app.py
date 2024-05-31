@@ -104,6 +104,13 @@ st.markdown("""
 # This is the first API key input; no need to repeat it in the main function.
 api_key = 'AIzaSyAJT6_IYPjUtUyT14uzZ8BSON7rDul7Ab8'
 
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+lottie_gif = load_lottieurl("https://lottie.host/0e82379c-6c75-4e4d-a1a0-e3bdb0c15400/gQTNtlyg1z.json")
+
 def ocr_image(image):
     text = pytesseract.image_to_string(image)
     return text
@@ -149,12 +156,13 @@ def main():
     #pdf_docs = st.file_uploader("Upload RFP responses here and Click on the Submit & Process Button", accept_multiple_files=True, key="pdf_uploader")
     pdf_docs = ["XYZ Consulting_withimage.pdf","ABC Consulting Response.pdf"]    
     if st.button("Start the evaluation"):  # Ensure API key and user question are provided
+      st_lottie(lottie_gif, height=70,width=70, key="python", speed=2.5)
       with st.spinner("Processing Response..."):
         with st.spinner("Reading response document..."):
             time.sleep(8)
             raw_text = get_pdf_text(pdf_docs)
             # st.write(raw_text)
-            
+        
       with st.spinner("Standardizing Responses...."):
         time.sleep(5)
         with st.spinner("Inconsistent Response Found. Standardizing Sections...."):
