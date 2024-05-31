@@ -109,30 +109,25 @@ def ocr_image(image):
     return text
 	
 def get_pdf_text(pdf_docs):
-    text = "Response 1: "
-    for pdf_info in pdf_docs:
-	    filename = pdf_info.name
-	    st.write(pdf_info)
-	    st.write(pdf_docs)
-	    try:
-		    with fitz.open(pdf_info) as pdf_document:
-			    for page_num in range(len(pdf_document)):
-				    page = pdf_document.load_page(page_num)
-				    text += page.get_text()
-                    
-	                    	    images = page.get_images(full=True)
-				    for img_index, img in enumerate(images):
-					    xref = img[0]
-					    base_image = pdf_document.extract_image(xref)
-					    image_bytes = base_image["image"]
-					    image_ext = base_image["ext"]
-					    image = Image.open(io.BytesIO(image_bytes))
-					    text += ocr_image(image)
-                            
-        
-        except Exception as e:
-            st.error(f"Error processing {filename}: {e}")
-    text += "\n\nResponse 2: "
+    	text = "Response 1: "
+	st.write(pdf_docs)
+	for pdf_path in pdf_docs:
+		st.write(pdf_path)
+		pdf_document = fitz.open(pdf_path)
+		for page_num in range(len(pdf_document)):
+			page = pdf_document.load_page(page_num)
+			text_ += page.get_text()
+			images = page.get_images(full=True)
+			for img_index, img in enumerate(images):
+				xref = img[0]
+				base_image = pdf_document.extract_image(xref)
+				image_bytes = base_image["image"]
+				image_ext = base_image["ext"] 
+				image = Image.open(io.BytesIO(image_bytes))
+				text_ += ocr_image(image)
+		pdf_document.close()
+		text += "\n\nResponse 2: "
+
 return text
 
 def user_input(api_key):
