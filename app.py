@@ -125,7 +125,7 @@ def get_pdf_text(pdf_docs):
 				image_bytes = base_image["image"]
 				image_ext = base_image["ext"] 
 				image = Image.open(io.BytesIO(image_bytes))
-				text_ += ocr_image(image)
+				text += ocr_image(image)
 		pdf_document.close()
 		text += "\n\nResponse 2: "
 
