@@ -12,6 +12,11 @@ import os
 from langchain_community.vectorstores import FAISS
 from langchain.chains import LLMChain
 from streamlit.components.v1 import html
+import fitz  # PyMuPDF
+import pytesseract
+from pdf2image import convert_from_path
+from PIL import Image
+import io
 
 import time
 
@@ -99,17 +104,44 @@ st.markdown("""
 # This is the first API key input; no need to repeat it in the main function.
 api_key = 'AIzaSyAJT6_IYPjUtUyT14uzZ8BSON7rDul7Ab8'
 
-
-def get_pdf_text(pdf_docs):
-    text = "Response 1: "
-    for pdf in pdf_docs:
-        
-        print("Reading PDF --->", pdf)
-        pdf_reader = PdfReader(pdf)
-        for page in pdf_reader.pages:
-            text += page.extract_text()
-        text +="\n\n Response 2: "
+def ocr_image(image):
+    text = pytesseract.image_to_string(image)
     return text
+	
+def get_pdf_text(pdf_docs):
+	text = "Response 1: "
+	
+	for pdf_path in pdf_docs:
+		# Open the PDF file
+		pdf_document = fitz.open(pdf_path)
+		
+		# Loop through each page
+		for page_num in range(len(pdf_document)):
+		    # Get the page
+		    page = pdf_document.load_page(page_num)
+		    
+		    # Extract text directly from the page
+		    text += page.get_text()
+		    
+		    # Extract images from the page
+		    images = page.get_images(full=True)
+		    
+		    for img_index, img in enumerate(images):
+		        xref = img[0]
+		        base_image = pdf_document.extract_image(xref)
+		        image_bytes = base_image["image"]
+		        image_ext = base_image["ext"]
+		        
+		        # Open the image with PIL
+		        image = Image.open(io.BytesIO(image_bytes))
+		        
+		        # Perform OCR on the image
+		        text += ocr_image(image)
+		
+		text += "\n\n Response 2:"
+	
+		# Close the PDF document
+		pdf_document.close()
   
 
 
@@ -129,7 +161,7 @@ def main():
 #    user_question = st.text_input("Ask a Question from the RFP Files", key="user_question")
 
     pdf_docs = st.file_uploader("Upload RFP responses here and Click on the Submit & Process Button", accept_multiple_files=True, key="pdf_uploader")
-   
+    
     if st.button("Start the evaluation"):  # Ensure API key and user question are provided
       with st.spinner("Processing Response..."):
         with st.spinner("Reading response document..."):
