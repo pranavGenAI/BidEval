@@ -158,8 +158,7 @@ def main():
     #pdf_docs = st.file_uploader("Upload RFP responses here and Click on the Submit & Process Button", accept_multiple_files=True, key="pdf_uploader")
     pdf_docs = ["XYZ Consulting_withimage.pdf","ABC Consulting Response.pdf"]    
     if st.button("Start the evaluation"):  # Ensure API key and user question are provided
-      with st.container:
-	      st_lottie(lottie_gif, height=70,width=70, key="python", speed=2.5)
+      st_lottie(lottie_gif, height=500,width=500, key="python", speed=2.5)
 	      
       with st.spinner("Processing Response..."):
         with st.spinner("Reading response document..."):
