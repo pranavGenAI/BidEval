@@ -119,39 +119,38 @@ def get_pdf_text(pdf_docs):
 	    file_path = f"path/to/files/{filename}"
 	    try:
 		    with fitz.open(file_path) as pdf_document:        
-			# Open the PDF file
-			pdf_document = fitz.open(pdf_path)
+			    	pdf_document = fitz.open(pdf_path)
 			
 			# Loop through each page
-			for page_num in range(len(pdf_document)):
-			    # Get the page
-			    page = pdf_document.load_page(page_num)
-			    
-			    # Extract text directly from the page
-			    text += page.get_text()
-			    
-			    # Extract images from the page
-			    images = page.get_images(full=True)
-			    
-			    for img_index, img in enumerate(images):
-			        xref = img[0]
-			        base_image = pdf_document.extract_image(xref)
-			        image_bytes = base_image["image"]
-			        image_ext = base_image["ext"]
-			        
-			        # Open the image with PIL
-			        image = Image.open(io.BytesIO(image_bytes))
-			        
-			        # Perform OCR on the image
-			        text += ocr_image(image)
+				for page_num in range(len(pdf_document)):
+				    # Get the page
+				    page = pdf_document.load_page(page_num)
+				    
+				    # Extract text directly from the page
+				    text += page.get_text()
+				    
+				    # Extract images from the page
+				    images = page.get_images(full=True)
+				    
+				for img_index, img in enumerate(images):
+				        xref = img[0]
+				        base_image = pdf_document.extract_image(xref)
+				        image_bytes = base_image["image"]
+				        image_ext = base_image["ext"]
+				        
+				        # Open the image with PIL
+				        image = Image.open(io.BytesIO(image_bytes))
+				        
+				        # Perform OCR on the image
+				        text += ocr_image(image)
+				
+				text += "\n\n Response 2:"
 			
-			text += "\n\n Response 2:"
-		
-			# Close the PDF document
-			pdf_document.close()
+				# Close the PDF document
+				pdf_document.close()
 	  
 	    except Exception as e:
-		      print(f"Error processing {filename}: {e}")
+		     		print(f"Error processing {filename}: {e}")
 	
 
 
