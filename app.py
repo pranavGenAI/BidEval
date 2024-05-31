@@ -113,7 +113,7 @@ def get_pdf_text(pdf_docs):
 	text = "Response 1: "
 	
 	for pdf_path in pdf_docs:
-		
+		st.write(pdf_path)
 		pdf_document = fitz.open(pdf_path)
 		for page_num in range(len(pdf_document)):
 			page = pdf_document.load_page(page_num)
