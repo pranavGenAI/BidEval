@@ -182,68 +182,70 @@ def main():
             time.sleep(3)
         
         with st.spinner("Evaluating Responses based on the scoring criteria"):
-            prompt = ''' Consider yourself as bid evaluator who will evaluate bids received from different vendors basis the context provided and will generate score with explaination. I will provide you some context but before we jump into evaluation let's understand the bid. Below are the bid details for which we will be evaluating the responses: 
-              LCBO Background
-              The Liquor Control Board of Ontario (LCBO) is a leading global retailer and wholesaler of beverage alcohol, offering over 28,000 products from more than 80 countries. Through its Spirit of Sustainability (SoS) platform, launched in 2018, the LCBO supports Ontario’s social and environmental needs. Last year, it contributed over $16 million to community well-being and returned $2.55 billion to the province.
-          
-              RFP Objective
-              LCBO seeks a consulting services provider to develop and implement a five-year ESG strategy that aligns with SoS and establishes LCBO as a sustainability leader. Requirements include:
-          
-              Minimum of five years in ESG strategy development and implementation.
-              Expertise in the alcohol beverage and retail consumer goods industry, plus knowledge of government and environmental regulations.
-          
-              Scope of Work
-              Phase 1: ESG Research and Analysis
-          
-              Conduct internal and external ESG research.
-              Perform a double materiality assessment.
-          
-              Phase 2: ESG Strategy Development
-          
-              Design a five-year ESG strategy, roadmap, and action plan.
-              Align strategy with LCBO’s purpose and government mandates.
-              Innovate in ESG practices and industry collaboration.
-              Establish environmental and social initiatives.
-              Develop an impact measurement and reporting framework.
-          
-              Phase 3: ESG Strategy Execution
-          
-              Implement the action plan within financial projections.
-              Ensure alignment with organizational resources.
-              Produce LCBO ESG Annual Reports.
-              Track progress and adapt to emerging frameworks.
-          
-              Phase 4: Continued Support
-          
-              Continue executing the ESG strategy for the remaining 36 months.
-              Identify and implement new initiatives.
-              Provide ad-hoc support as needed.
-          
-              Evaluation Criteria
-              Company Qualifications - 5 points
-              Case Studies/Examples - 10 points
-              Team and Experience - 10 points
-              Work Plan, Approach and Methodology - 30 points
-          
-              Now you will evaluate both responses and return the detailed scoring result with table of scores for both Responses and rationale behind the scoring in another column. Rationale should be as detailed as possible. 
-              Table format: Column 1 header - Criteria; Column 2 header - Response 1 (Company name); Column 3 header -Response 2 (company name); Column 4 header- Scoring Rationale
-              Provide another table for total score below the above table.
-              Total score table format: Column 1 header- Company Name; Column 2 header- Total Score which should be out of 55 points
-              Then provide the final recommendation paragraph explaining your opinion on evaluation. Try to be as detailed as possible in your response.
-              Here are the responses: {raw_text}
-          
-              '''
-        
-            prompt = PromptTemplate(template=prompt, input_variables=["raw_text"])
-            print("Prompt is....", prompt)
-            model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3, google_api_key=api_key)
-            chat_llm_chain = LLMChain(
-                llm=model,
-                prompt=prompt,
-                verbose=True
-            )	
-            response = chat_llm_chain.predict(raw_text=raw_text)
-            st.write(response)
+		time.sleep(6)
+	        with st.spinner("Drafting Response..."):
+	            prompt = ''' Consider yourself as bid evaluator who will evaluate bids received from different vendors basis the context provided and will generate score with explaination. I will provide you some context but before we jump into evaluation let's understand the bid. Below are the bid details for which we will be evaluating the responses: 
+	              LCBO Background
+	              The Liquor Control Board of Ontario (LCBO) is a leading global retailer and wholesaler of beverage alcohol, offering over 28,000 products from more than 80 countries. Through its Spirit of Sustainability (SoS) platform, launched in 2018, the LCBO supports Ontario’s social and environmental needs. Last year, it contributed over $16 million to community well-being and returned $2.55 billion to the province.
+	          
+	              RFP Objective
+	              LCBO seeks a consulting services provider to develop and implement a five-year ESG strategy that aligns with SoS and establishes LCBO as a sustainability leader. Requirements include:
+	          
+	              Minimum of five years in ESG strategy development and implementation.
+	              Expertise in the alcohol beverage and retail consumer goods industry, plus knowledge of government and environmental regulations.
+	          
+	              Scope of Work
+	              Phase 1: ESG Research and Analysis
+	          
+	              Conduct internal and external ESG research.
+	              Perform a double materiality assessment.
+	          
+	              Phase 2: ESG Strategy Development
+	          
+	              Design a five-year ESG strategy, roadmap, and action plan.
+	              Align strategy with LCBO’s purpose and government mandates.
+	              Innovate in ESG practices and industry collaboration.
+	              Establish environmental and social initiatives.
+	              Develop an impact measurement and reporting framework.
+	          
+	              Phase 3: ESG Strategy Execution
+	          
+	              Implement the action plan within financial projections.
+	              Ensure alignment with organizational resources.
+	              Produce LCBO ESG Annual Reports.
+	              Track progress and adapt to emerging frameworks.
+	          
+	              Phase 4: Continued Support
+	          
+	              Continue executing the ESG strategy for the remaining 36 months.
+	              Identify and implement new initiatives.
+	              Provide ad-hoc support as needed.
+	          
+	              Evaluation Criteria
+	              Company Qualifications - 5 points
+	              Case Studies/Examples - 10 points
+	              Team and Experience - 10 points
+	              Work Plan, Approach and Methodology - 30 points
+	          
+	              Now you will evaluate both responses and return the detailed scoring result with table of scores for both Responses and rationale behind the scoring in another column. Rationale should be as detailed as possible. 
+	              Table format: Column 1 header - Criteria; Column 2 header - Response 1 (Company name); Column 3 header -Response 2 (company name); Column 4 header- Scoring Rationale
+	              Provide another table for total score below the above table.
+	              Total score table format: Column 1 header- Company Name; Column 2 header- Total Score which should be out of 55 points
+	              Then provide the final recommendation paragraph explaining your opinion on evaluation. Try to be as detailed as possible in your response.
+	              Here are the responses: {raw_text}
+	          
+	              '''
+	        
+	            prompt = PromptTemplate(template=prompt, input_variables=["raw_text"])
+	            print("Prompt is....", prompt)
+	            model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3, google_api_key=api_key)
+	            chat_llm_chain = LLMChain(
+	                llm=model,
+	                prompt=prompt,
+	                verbose=True
+	            )	
+	            response = chat_llm_chain.predict(raw_text=raw_text)
+	            st.write(response)
 
 
 if __name__ == "__main__":
