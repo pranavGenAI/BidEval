@@ -228,7 +228,7 @@ def main():
               Now you will evaluate both responses and return the detailed scoring result with table of scores for both Responses and rationale behind the scoring in another column. Rationale should be as detailed as possible. 
               Table format: Column 1 header - Criteria; Column 2 header - Response 1 (Company name); Column 3 header -Response 2 (company name); Column 4 header- Scoring Rationale
               Provide another table for total score below the above table.
-              Total score table format: Column 1 header- Company Name; Column 2 header- Total Score
+              Total score table format: Column 1 header- Company Name; Column 2 header- Total Score which should be out of 55 points
               Then provide the final recommendation paragraph explaining your opinion on evaluation. Try to be as detailed as possible in your response.
               Here are the responses: {raw_text}
           
