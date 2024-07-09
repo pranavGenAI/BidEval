@@ -25,22 +25,6 @@ import time
 
 st.set_page_config(page_title="Bid Response Evaluation AI ", layout="wide")
 
-with st.expander("**Models and parameters**"):
-    st.session_state.temperature = st.slider(
-                "temperature",
-                min_value=0.1,
-                max_value=1.0,
-                value=0.3,
-                step=0.1,
-                )
-    st.session_state.top_p = st.slider(
-                "top_p",
-                min_value=0.1,
-                max_value=1.0,
-                value=0.95,
-                step=0.05,
-                )
-
 
 
 video_html = """
@@ -268,33 +252,49 @@ def main():
 if __name__ == "__main__":
     # with open('https://github.com/pranavGenAI/bidbooster/blob/475ae18b3c1f5a05a45ff983e06b025943137576/wave.css') as f:
         # css = f.read()
-
-    st.markdown('''<style>
-        .stApp > header {
-        background-color: transparent;
-    }
-    @keyframes my_animation {
-        0% {background-position: 0% 0%;}
-        50% {background-position: 100% 100%;}
-        100% {background-position: 0% 0%;}
-    }
-    [data-testid=stSidebar] {
-        background: linear-gradient(360deg, #1a2631 95%, #161d29 10%);
-    }
-    div.stButton > button:first-child {
-        background:linear-gradient(45deg, #c9024b 45%, #ba0158 55%, #cd006d 70%);
-        color: white;
-        border: none;
-    }
-    div.stButton > button:hover {
-        background:linear-gradient(45deg, #ce026f 45%, #970e79 55%, #6c028d 70%);
-        background-color:#ce1126;
-    }
-    div.stButton > button:active {
-        position:relative;
-        top:3px;
-    }    
+    with st.expander("**Models and parameters**"):
+        st.session_state.temperature = st.slider(
+                    "temperature",
+                    min_value=0.1,
+                    max_value=1.0,
+                    value=0.3,
+                    step=0.1,
+                    )
+        st.session_state.top_p = st.slider(
+                    "top_p",
+                    min_value=0.1,
+                    max_value=1.0,
+                    value=0.95,
+                    step=0.05,
+                    )
 
 
-    </style>''', unsafe_allow_html=True)
-    main()
+        st.markdown('''<style>
+            .stApp > header {
+            background-color: transparent;
+        }
+        @keyframes my_animation {
+            0% {background-position: 0% 0%;}
+            50% {background-position: 100% 100%;}
+            100% {background-position: 0% 0%;}
+        }
+        [data-testid=stSidebar] {
+            background: linear-gradient(360deg, #1a2631 95%, #161d29 10%);
+        }
+        div.stButton > button:first-child {
+            background:linear-gradient(45deg, #c9024b 45%, #ba0158 55%, #cd006d 70%);
+            color: white;
+            border: none;
+        }
+        div.stButton > button:hover {
+            background:linear-gradient(45deg, #ce026f 45%, #970e79 55%, #6c028d 70%);
+            background-color:#ce1126;
+        }
+        div.stButton > button:active {
+            position:relative;
+            top:3px;
+        }    
+
+
+        </style>''', unsafe_allow_html=True)
+        main()
