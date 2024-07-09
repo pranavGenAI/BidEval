@@ -57,6 +57,21 @@ st.markdown(video_html, unsafe_allow_html=True)
 
 st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
 st.markdown("")
+with st.expander("**Models and parameters**"):
+        st.session_state.temperature = st.slider(
+                    "temperature",
+                    min_value=0.1,
+                    max_value=1.0,
+                    value=0.3,
+                    step=0.1,
+                    )
+        st.session_state.top_p = st.slider(
+                    "top_p",
+                    min_value=0.1,
+                    max_value=1.0,
+                    value=0.95,
+                    step=0.05,
+                    )
 
 st.markdown("""
 <style>
@@ -249,24 +264,10 @@ def main():
 	            st.write(response)
 
 
+
 if __name__ == "__main__":
     # with open('https://github.com/pranavGenAI/bidbooster/blob/475ae18b3c1f5a05a45ff983e06b025943137576/wave.css') as f:
         # css = f.read()
-    with st.expander("**Models and parameters**"):
-        st.session_state.temperature = st.slider(
-                    "temperature",
-                    min_value=0.1,
-                    max_value=1.0,
-                    value=0.3,
-                    step=0.1,
-                    )
-        st.session_state.top_p = st.slider(
-                    "top_p",
-                    min_value=0.1,
-                    max_value=1.0,
-                    value=0.95,
-                    step=0.05,
-                    )
 
 
         st.markdown('''<style>
