@@ -52,29 +52,28 @@ video_html = """
 		  Your browser does not support HTML5 video.
 		</video>
 		"""
-
 st.markdown(video_html, unsafe_allow_html=True)
 
 st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
 st.markdown("")
 col1, col2 = [1,1]
 with col1:
-	with st.expander("**Models and parameters**"):
-        	st.session_state.temperature = st.slider(
-	                    "temperature",
-	                    min_value=0.1,
-	                    max_value=1.0,
-	                    value=0.3,
-	                    step=0.1,
-	                    )
-        	st.session_state.top_p = st.slider(
-	                    "top_p",
-	                    min_value=0.1,
-	                    max_value=1.0,
-	                    value=0.95,
-	                    step=0.05,
-	                    )
-
+        with st.expander("**Models and parameters**"):
+                    st.session_state.temperature = st.slider(
+                            "temperature",
+	                        min_value=0.1,
+                            max_value=1.0,
+                            value=0.3,
+                            step=0.1,
+                            )
+                    st.session_state.top_p = st.slider(
+                            "top_p",
+                            min_value=0.1,
+                            max_value=1.0,
+                            value=0.95,
+                            step=0.05,
+                            )
+		
 st.markdown("""
 <style>
     iframe {
