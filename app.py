@@ -107,7 +107,7 @@ st.markdown("""
 
 
 # This is the first API key input; no need to repeat it in the main function.
-api_key = 'AIzaSyAJT6_IYPjUtUyT14uzZ8BSON7rDul7Ab8'
+api_key = 'AIzaSyCiPGxwD04JwxifewrYiqzufyd25VjKBkw'
 
 def load_lottieurl(url: str):
     r = requests.get(url)
