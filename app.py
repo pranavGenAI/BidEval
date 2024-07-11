@@ -324,7 +324,7 @@ def main():
 	            )	
                 response = chat_llm_chain.predict(raw_text=raw_text)
 		    # Calculate number of words in the response
-                num_words = len(response["output_text"].split())
+                num_words = len(response.split())
             
                 # Deduct tokens based on number of words
                 token_cost = num_words  # Each word in the response costs 1 token (adjust as needed)
