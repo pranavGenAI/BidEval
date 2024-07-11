@@ -346,8 +346,6 @@ def main():
 if __name__ == "__main__":
     # with open('https://github.com/pranavGenAI/bidbooster/blob/475ae18b3c1f5a05a45ff983e06b025943137576/wave.css') as f:
         # css = f.read()
-
-
         st.markdown('''<style>
             .stApp > header {
             background-color: transparent;
@@ -383,7 +381,6 @@ if __name__ == "__main__":
             st.session_state.tokens_consumed = 0
         if "tokens_remaining" not in st.session_state:
             st.session_state.tokens_remaining = 0
-        
         if st.session_state.logged_in:
             st.sidebar.write(f"Welcome, {st.session_state.username}")
             st.sidebar.write(f"Tokens remaining: {st.session_state.tokens_remaining}")
