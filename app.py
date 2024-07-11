@@ -20,7 +20,8 @@ import io
 import requests
 from streamlit_lottie import st_lottie
 from streamlit_lottie import st_lottie_spinner
-
+import json
+import hashlib
 import time
 
 st.set_page_config(page_title="Bid Response Evaluation AI ", layout="wide")
@@ -55,6 +56,76 @@ video_html = """
 st.markdown(video_html, unsafe_allow_html=True)
 
 st.image("https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png", width=120)
+# Helper function to hash passwords
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+
+# Define users and hashed passwords for simplicity
+users = {
+    "tomas": hash_password("tomas123"),
+    "admin": hash_password("admin")
+}
+
+
+TOKEN_FILE = "./data/token_counts_eval.json"
+
+def read_token_counts():
+    try:
+        with open("./data/token_counts_eval.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+def write_token_counts(token_counts):
+    with open("./data/token_counts_eval.json", "w") as f:
+        json.dump(token_counts, f)
+
+
+def get_token_count(username):
+    token_counts = read_token_counts()
+    return token_counts.get(username, 1000)  # Default to 1000 tokens if not found
+
+def update_token_count(username, count):
+    token_counts = read_token_counts()
+    token_counts[username] = count
+    write_token_counts(token_counts)
+
+
+def login():
+    col1, col2, col3 = st.columns([1, 1, 1])  # Create three columns with equal width
+    with col2:  # Center the input fields in the middle column
+        st.title("Login")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        
+        if st.button("Sign in"):
+            hashed_password = hash_password(password)
+            if username in users and users[username] == hashed_password:
+                token_counts = read_token_counts()
+                tokens_remaining = token_counts.get(username, 500)  # Default to 500 tokens if not found
+                
+                if tokens_remaining > 0:
+                    st.session_state.logged_in = True
+                    st.session_state.username = username
+                    st.session_state.tokens_remaining = tokens_remaining
+                    st.session_state.tokens_consumed = 0
+                    st.success("Logged in successfully!")
+                    st.experimental_rerun()  # Refresh to show logged-in state
+                else:
+                    st.error("No tokens remaining. Please contact support.")
+            else:
+                st.error("Invalid username or password")
+
+def logout():
+    # Clear session state on logout
+    st.session_state.logged_in = False
+    del st.session_state.username
+    del st.session_state.tokens_remaining
+    del st.session_state.tokens_consumed
+    st.success("Logged out successfully!")
+    st.experimental_rerun()  # Refresh to show logged-out state
+
 st.markdown("")
 with st.expander("**Models and parameters**"):
                     st.session_state.temperature = st.slider(
@@ -87,7 +158,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 st.markdown("""
     <style>
         @keyframes gradientAnimation {
@@ -116,11 +186,6 @@ st.markdown("""
         Bid Response Evaluation AI: Evaluates Bid responses!
     </p>
 """, unsafe_allow_html=True)
-
-
-#st.image("https://media1.tenor.com/m/6o864GYN6wUAAAAC/interruption-sorry.gif", width=1000)
-# st.image("https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjl2dGNiYThobHplMG81aGNqMjdsbWwwYWJmbTBncGp6dHFtZTFzMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/CGP9713UVzQ0BQPhSf/giphy.gif", width=50)
-
 
 # This is the first API key input; no need to repeat it in the main function.
 api_key = 'AIzaSyCiPGxwD04JwxifewrYiqzufyd25VjKBkw'
@@ -161,7 +226,6 @@ def get_pdf_text(pdf_docs):
 def user_input(api_key):
     st.write('inside input function')
 
-
 def main():
 
 
@@ -200,7 +264,7 @@ def main():
         with st.spinner("Evaluating Responses based on the scoring criteria"):
             time.sleep(6)
             with st.spinner("Drafting Response..."):
-	            prompt = ''' Consider yourself as bid evaluator who will evaluate bids received from different vendors basis the context provided and will generate score with explaination. I will provide you some context but before we jump into evaluation let's understand the bid. Below are the bid details for which we will be evaluating the responses: 
+                prompt = ''' Consider yourself as bid evaluator who will evaluate bids received from different vendors basis the context provided and will generate score with explaination. I will provide you some context but before we jump into evaluation let's understand the bid. Below are the bid details for which we will be evaluating the responses: 
 	              LCBO Background
 	              The Liquor Control Board of Ontario (LCBO) is a leading global retailer and wholesaler of beverage alcohol, offering over 28,000 products from more than 80 countries. Through its Spirit of Sustainability (SoS) platform, launched in 2018, the LCBO supports Ontario’s social and environmental needs. Last year, it contributed over $16 million to community well-being and returned $2.55 billion to the province.
 	          
@@ -250,19 +314,34 @@ def main():
 	              Then provide the final recommendation paragraph explaining your opinion on evaluation. Try to be as detailed as possible in your response and provide summary in the end outside table. That can be your opinion what do you think is best option.
 	              Here are the responses: {raw_text}
 	              '''
-	        
-	            prompt = PromptTemplate(template=prompt, input_variables=["raw_text"])
-	            print("Prompt is....", prompt)
-	            model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=st.session_state.temperature, google_api_key=api_key)
-	            chat_llm_chain = LLMChain(
+                
+                prompt = PromptTemplate(template=prompt, input_variables=["raw_text"])
+                model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=st.session_state.temperature, google_api_key=api_key)
+                chat_llm_chain = LLMChain(
 	                llm=model,
 	                prompt=prompt,
 	                verbose=True
 	            )	
-	            response = chat_llm_chain.predict(raw_text=raw_text)
-	            st.write(response)
-
-
+                response = chat_llm_chain.predict(raw_text=raw_text)
+		    # Calculate number of words in the response
+                num_words = len(response["output_text"].split())
+            
+                # Deduct tokens based on number of words
+                token_cost = num_words  # Each word in the response costs 1 token (adjust as needed)
+                if st.session_state.tokens_remaining > 0:
+                    st.write(response)
+                    st.session_state.tokens_consumed += token_cost  # Deduct tokens based on response length
+                    st.session_state.tokens_remaining -= token_cost
+                
+                        # Update token count in JSON file
+                    token_counts = read_token_counts()
+                    token_counts[st.session_state.username] = st.session_state.tokens_remaining
+                    write_token_counts(token_counts)
+                else:
+                    st.warning("You don't have enough tokens. Please contact your administrator.")
+            
+                # Display remaining tokens to the user
+                st.sidebar.text(f"Tokens Remaining: {st.session_state.tokens_remaining}")
 
 if __name__ == "__main__":
     # with open('https://github.com/pranavGenAI/bidbooster/blob/475ae18b3c1f5a05a45ff983e06b025943137576/wave.css') as f:
@@ -297,4 +376,19 @@ if __name__ == "__main__":
 
 
         </style>''', unsafe_allow_html=True)
-        main()
+    # Ensure session state variables are initialized
+        if "logged_in" not in st.session_state:
+            st.session_state.logged_in = False
+        if "tokens_consumed" not in st.session_state:
+            st.session_state.tokens_consumed = 0
+        if "tokens_remaining" not in st.session_state:
+            st.session_state.tokens_remaining = 0
+        
+        if st.session_state.logged_in:
+            st.sidebar.write(f"Welcome, {st.session_state.username}")
+            st.sidebar.write(f"Tokens remaining: {st.session_state.tokens_remaining}")
+            if st.sidebar.button("Logout"):
+                logout()
+            main()
+        else:
+            login()
