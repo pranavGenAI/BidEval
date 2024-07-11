@@ -120,7 +120,7 @@ def login():
     col4, col5, col6, col7, col8, col9 = st.columns([1, 1, 1, 1, 1, 1])
     st.markdown("")
     st.markdown("")
-    with col7:
+    with col4:
         st.markdown("")
         st.markdown("")
         st.markdown("")
